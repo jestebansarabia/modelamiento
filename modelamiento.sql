@@ -6,8 +6,13 @@ CREATE TABLE IF NOT EXISTS personas(
 id INT NOT NULL AUTO_INCREMENT,
 nombre VARCHAR(45) NOT NULL,
 apellido VARCHAR(45) NOT NULL,
+<<<<<<< HEAD
 tipoDocumento  VARCHAR(45) NOT NULL,
 documento INT NOT NULL,
+=======
+tipoDocumento VARCHAR(45) NOT NULL,
+documento INT NOT NULL ,
+>>>>>>> 0552f3c378e0458cf77d5704e32f237240a56928
 telefono VARCHAR(45)  NOT NULL,
 correo VARCHAR(45)  NOT NULL,
 password VARCHAR(45)  NOT NULL,
@@ -39,7 +44,11 @@ id INT NOT NULL AUTO_INCREMENT,
 idFichaTecnica VARCHAR(45) NOT NULL,
 
 PRIMARY KEY(id),
+<<<<<<< HEAD
 FOREIGN KEY (idFichaTecnica) REFERENCES fichaTecnicas(placa)
+=======
+FOREIGN KEY (FichaTenica) REFERENCES fichaTecnicas(placa)
+>>>>>>> 0552f3c378e0458cf77d5704e32f237240a56928
 )ENGINE InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -55,6 +64,7 @@ edad INT NULL,
 PRIMARY KEY(id),
 FOREIGN KEY (idPersona) REFERENCES personas(id),
 FOREIGN KEY (idVehiculo) REFERENCES vehiculos(id)
+<<<<<<< HEAD
 )ENGINE InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS rutas(
@@ -74,6 +84,8 @@ idRuta INT NOT NULL,
 PRIMARY KEY(id),
 FOREIGN KEY (idTransportador) REFERENCES trasportadores(id),
 FOREIGN KEY (idRuta) REFERENCES rutas(id)
+=======
+>>>>>>> 0552f3c378e0458cf77d5704e32f237240a56928
 )ENGINE InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS pasajeros(

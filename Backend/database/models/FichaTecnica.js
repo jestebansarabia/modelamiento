@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = "FichaTecnicas";
+    let alias = "fichaTecnicas";
     let cols = {
         placa: {
             type: dataTypes.STRING,
@@ -25,12 +25,12 @@ module.exports = (sequelize, dataTypes) => {
         },
     };
     let config = {
-        tableName: "FichaTecnicas",
+        tableName: "fichaTecnicas",
         timestamps: false,
         deletedAt: false,
         paranoid: true
     };
-    const FichaTecnicas = sequelize.define(alias, cols, config);
+    const fichaTecnicas = sequelize.define(alias, cols, config);
     /*
     FichaTecnicas.associate = function (models) {
         FichaTecnicas.hasMany(models.Vehiculos, {
@@ -39,6 +39,6 @@ module.exports = (sequelize, dataTypes) => {
         });
     }
 */
-    return FichaTecnicas;
+    return fichaTecnicas;
 
 }

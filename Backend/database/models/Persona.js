@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = "Personas";
+    let alias = "personas";
     let cols = {
         id: {
             type: dataTypes.INTEGER,
@@ -33,12 +33,12 @@ module.exports = (sequelize, dataTypes) => {
 
     };
     let config = {
-        tableName: "Personas",
+        tableName: "personas",
         timestamps: false,
         deletedAt: false,
         paranoid: true
     };
-    const Personas = sequelize.define(alias, cols, config);
+    const personas = sequelize.define(alias, cols, config);
     /*
 
     Personas.associate = function(models) {
@@ -55,6 +55,6 @@ module.exports = (sequelize, dataTypes) => {
     }
     */
 
-    return Personas;
+    return personas;
 
 }

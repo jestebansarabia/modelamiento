@@ -3,7 +3,7 @@ const db = require('../database/models');
 const user = {
     login: (req, res) => {
         const body = req.body;
-        db.Personas.findOne({
+        db.personas.findOne({
             where: {
                 correo: body.correo,
             }
@@ -35,8 +35,9 @@ const user = {
     },
     store: (req, res) => {
         const body = req.body;
+        console.log("body: ", body);
 
-        db.Personas.findOne({
+        db.personas.findOne({
             where: {
                 correo: body.correo,
             }
@@ -47,7 +48,7 @@ const user = {
                     err: 'Usuario ya existe'
                 });
             } else {
-                db.Personas.create({
+                db.personas.create({
                     nombre: body.nombre,
                     apellido: body.apellido,
                     tipoDocumento: body.tipoDocumento,
@@ -72,7 +73,7 @@ const user = {
         }).catch(err => {
             res.json({
                 ok: false,
-                err: 'Error al buscar usuario'
+                err: 'Error al buscar usuario '
             });
         });
     },
@@ -80,7 +81,7 @@ const user = {
         const id = req.params.id;
         const body = req.body;
         
-        db.Personas.update({
+        db.personas.update({
             nombre: body.nombre,
             apellido: body.apellido,
             tipoDocumento: body.tipoDocumento,
