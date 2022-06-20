@@ -53,6 +53,11 @@ main{
     border-radius: 5px;
 }
 
+.from-down-messenger{
+    text-align: center;
+    color: indianred;
+}
+
 .from-down-button{
     display: flex;
     justify-content: center;

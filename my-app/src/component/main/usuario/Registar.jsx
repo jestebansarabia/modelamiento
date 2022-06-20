@@ -1,7 +1,47 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+import { useRef ,useState} from 'react';
 
 const Registar = () => {
+
+    const [datos,setDatos] = useState({});
+    const messenger = useRef();
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setDatos({ ...datos, [name]: value });
+      };
+
+    const enviarData=()=>{
+        console.log("datos: ",datos);
+        
+        messenger.current.innerHTML = 'Cargando....';
+    
+        fetch('http://localhost:3030/users/store', {
+            mode: 'cors',
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(datos), // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("data: ",data);
+                if(data.ok){
+                    messenger.current.innerHTML = 'Usuario registrado correctamente';
+                    window.location='/usuario/login';
+                }else{
+                    messenger.current.innerHTML = 'Error al registrar el usuario: '+data.err;
+                }
+        })
+        .catch(error => {
+            console.log('error: ', error);
+            messenger.current.innerHTML = 'Error al enviar los datos';
+        });
+    }
+
     return (
         <main>
             <div className="from">
@@ -11,46 +51,49 @@ const Registar = () => {
                 <div className="from-down">
                     <div className="from-down-left">
                         <div className="from-down-input">
-                            <label for="nombre">Nombre: </label>
-                            <input type="text" name="nombre" id="nombre" placeholder="nombre" />
+                            <label htmlFor="nombre">Nombre: </label>
+                            <input type="text" name="nombre" id="nombre" placeholder="nombre" onChange={handleChange} />
                         </div>
                         <div className="from-down-input">
-                            <label for="apellido">Apellido: </label>
-                            <input type="text" name="apellido" id="apellido" placeholder="apellido" />
+                            <label htmlFor="apellido">Apellido: </label>
+                            <input type="text" name="apellido" id="apellido" placeholder="apellido" onChange={handleChange} />
                         </div>
                         <div className="from-down-input">
-                            <label for="tipoDocumento">Tipo de Documento: </label>
-                            <input type="text" name="tipoDocumento" id="tipoDocumento" placeholder="tipoDocumento" />
+                            <label htmlFor="tipoDocumento">Tipo de Documento: </label>
+                            <input type="text" name="tipoDocumento" id="tipoDocumento" placeholder="tipoDocumento" onChange={handleChange} />
                         </div>
                         <div className="from-down-input">
-                            <label for="documento"># Documento: </label>
-                            <input type="number" name="documento" id="documento" placeholder="Documento" />
+                            <label htmlFor="documento"># Documento: </label>
+                            <input type="number" name="documento" id="documento" placeholder="Documento" onChange={handleChange}/>
                         </div>
                     </div>
                     <div className="from-down-right">
                         <div className="from-down-input">
-                            <label for="telefono"># Telefono: </label>
-                            <input type="phone" name="telefono" id="telefono" placeholder="telefono" />
+                            <label htmlFor="telefono"># Telefono: </label>
+                            <input type="phone" name="telefono" id="telefono" placeholder="telefono" onChange={handleChange}/>
                         </div>
                         <div className="from-down-input">
-                            <label for="email">Correo: </label>
-                            <input type="email" name="email" id="email" placeholder="email" />
+                            <label htmlFor="email">Correo: </label>
+                            <input type="email" name="correo" id="email" placeholder="email" onChange={handleChange}/>
                         </div>
                         <div className="from-down-input">
-                            <label for="password">Contraseña: </label>
-                            <input type="password" name="password" id="password" />
+                            <label htmlFor="password">Contraseña: </label>
+                            <input type="password" name="password" id="password" onChange={handleChange}/>
                         </div>
                         <div className="from-down-input">
-                            <label for="direccion">Direccion: </label>
-                            <input type="text" name="direccion" id="emadireccionil" placeholder="direccion" />
+                            <label htmlFor="direccion">Direccion: </label>
+                            <input type="text" name="direccion" id="emadireccionil" placeholder="direccion" onChange={handleChange}/>
                         </div>
                     </div>
+                    <div className='from-down-messenger'>
+                        <small ref={messenger}></small>
+                    </div>
                     <div className="from-down-button">
-                        <button onclick="">Registar</button>
+                        <button onClick={enviarData}>Registar</button>
                     </div>
 
                     <div className="from-down-button">
-                        <Link to="/">Ya tengo cuenta</Link>
+                        <Link to="/usuario/login">Ya tengo cuenta</Link>
                     </div>
                 </div>
             </div>

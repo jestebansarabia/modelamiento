@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 
 var usersRouter = require('./routes/users');
 
@@ -18,6 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 //app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use(cors());
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
@@ -38,6 +41,9 @@ app.use(function(err, req, res, next) {
 });
 */
 
+
 app.listen(3030, console.log("servidor corriendo en el puerto 3030"));
+
+
 
 module.exports = app;
