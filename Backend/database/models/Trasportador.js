@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = "trasportadores";
+    let alias = "Trasportadores";
     let cols = {
         placa: {
             type: dataTypes.INTEGER,
@@ -27,7 +27,7 @@ module.exports = (sequelize, dataTypes) => {
         deletedAt: false,
         paranoid: true
     };
-    const trasportadores = sequelize.define(alias, cols, config);
+    const Trasportadores = sequelize.define(alias, cols, config);
     /*
 
     Trasportadores.associate = function(models) {
@@ -46,6 +46,6 @@ module.exports = (sequelize, dataTypes) => {
     }
     */
 
-    return trasportadores;
+    return Trasportadores;
 
 }

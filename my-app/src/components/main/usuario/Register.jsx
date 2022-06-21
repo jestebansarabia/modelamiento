@@ -1,22 +1,21 @@
-import React from 'react';
-import { Link} from 'react-router-dom';
-import { useRef ,useState} from 'react';
+import { Link } from 'react-router-dom';
+import { useRef, useState } from 'react';
 
 const Registar = () => {
 
-    const [datos,setDatos] = useState({});
+    const [datos, setDatos] = useState({});
     const messenger = useRef();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setDatos({ ...datos, [name]: value });
-      };
+    };
 
-    const enviarData=()=>{
-        console.log("datos: ",datos);
-        
+    const enviarData = () => {
+        console.log("datos: ", datos);
+
         messenger.current.innerHTML = 'Cargando....';
-    
+
         fetch('http://localhost:3030/users/store', {
             mode: 'cors',
             method: 'POST', // or 'PUT'
@@ -26,20 +25,20 @@ const Registar = () => {
                 'Access-Control-Allow-Origin': '*',
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log("data: ",data);
-                if(data.ok){
+            .then(res => res.json())
+            .then(data => {
+                console.log("data: ", data);
+                if (data.ok) {
                     messenger.current.innerHTML = 'Usuario registrado correctamente';
-                    window.location='/usuario/login';
-                }else{
-                    messenger.current.innerHTML = 'Error al registrar el usuario: '+data.err;
+                    window.location = '/usuario/login';
+                } else {
+                    messenger.current.innerHTML = 'Error al registrar el usuario: ' + data.err;
                 }
-        })
-        .catch(error => {
-            console.log('error: ', error);
-            messenger.current.innerHTML = 'Error al enviar los datos';
-        });
+            })
+            .catch(error => {
+                console.log('error: ', error);
+                messenger.current.innerHTML = 'Error al enviar los datos';
+            });
     }
 
     return (
@@ -64,38 +63,39 @@ const Registar = () => {
                         </div>
                         <div className="from-down-input">
                             <label htmlFor="documento"># Documento: </label>
-                            <input type="number" name="documento" id="documento" placeholder="Documento" onChange={handleChange}/>
+                            <input type="number" name="documento" id="documento" placeholder="Documento" onChange={handleChange} />
                         </div>
                     </div>
                     <div className="from-down-right">
                         <div className="from-down-input">
                             <label htmlFor="telefono"># Telefono: </label>
-                            <input type="phone" name="telefono" id="telefono" placeholder="telefono" onChange={handleChange}/>
+                            <input type="phone" name="telefono" id="telefono" placeholder="telefono" onChange={handleChange} />
                         </div>
                         <div className="from-down-input">
                             <label htmlFor="email">Correo: </label>
-                            <input type="email" name="correo" id="email" placeholder="email" onChange={handleChange}/>
+                            <input type="email" name="correo" id="email" placeholder="email" onChange={handleChange} />
                         </div>
                         <div className="from-down-input">
                             <label htmlFor="password">Contraseña: </label>
-                            <input type="password" name="password" id="password" onChange={handleChange}/>
+                            <input type="password" name="password" id="password" onChange={handleChange} />
                         </div>
                         <div className="from-down-input">
                             <label htmlFor="direccion">Direccion: </label>
-                            <input type="text" name="direccion" id="emadireccionil" placeholder="direccion" onChange={handleChange}/>
+                            <input type="text" name="direccion" id="emadireccionil" placeholder="direccion" onChange={handleChange} />
                         </div>
                     </div>
-                    <div className='from-down-messenger'>
-                        <small ref={messenger}></small>
-                    </div>
-                    <div className="from-down-button">
-                        <button onClick={enviarData}>Registar</button>
-                    </div>
-
-                    <div className="from-down-button">
-                        <Link to="/usuario/login">Ya tengo cuenta</Link>
-                    </div>
                 </div>
+                <div className='from-down-messenger'>
+                    <small ref={messenger}></small>
+                </div>
+                <div className="from-down-button">
+                    <button onClick={enviarData}>Registar</button>
+                </div>
+
+                <div className="from-down-button">
+                    <Link to="/usuario/login">Ya tengo cuenta</Link>
+                </div>
+
             </div>
         </main>
     );

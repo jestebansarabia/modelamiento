@@ -3,7 +3,8 @@ const db = require('../database/models');
 const user = {
     login: (req, res) => {
         const body = req.body;
-        db.personas.findOne({
+        console.log(body);
+        db.Personas.findOne({
             where: {
                 correo: body.correo,
             }
@@ -17,7 +18,7 @@ const user = {
                 } else {
                     res.json({
                         ok: false,
-                        err: 'Password incorrecto'
+                        err: 'Credenciales incorrecta'
                     });
                 }
             } else {
@@ -26,18 +27,21 @@ const user = {
                     err: 'Usuario no existe'
                 });
             }
-        }).catch(err => {
+        })
+        
+        /*.catch(err => {
             res.json({
                 ok: false,
                 err: 'Error al buscar usuario'
             });
         });
+        */
     },
     store: (req, res) => {
         const body = req.body;
         console.log("body: ", body);
 
-        db.personas.findOne({
+        db.Personas.findOne({
             where: {
                 correo: body.correo,
             }

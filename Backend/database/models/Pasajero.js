@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = "pasajeros";
+    let alias = "Pasajeros";
     let cols = {
         id: {
             type: dataTypes.INTEGER,
@@ -19,19 +19,19 @@ module.exports = (sequelize, dataTypes) => {
         deletedAt: false,
         paranoid: true
     };
-    const pasajeros = sequelize.define(alias, cols, config);
+    const Pasajeros = sequelize.define(alias, cols, config);
 
-    pasajeros.associate = function(models) {
-        pasajeros.belongsTo(models.clientes, {
-            as: "cliente",
+    Pasajeros.associate = function(models) {
+        Pasajeros.belongsTo(models.Clientes, {
+            as: "Cliente",
             foreignKey: "idCliente"
         });
-        pasajeros.belongsTo(models.viajes, {
-            as: "viaje",
+        Pasajeros.belongsTo(models.Viajes, {
+            as: "Viaje",
             foreignKey: "idViaje"
         });
     }
 
-    return pasajeros;
+    return Pasajeros;
 
 }

@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = "rutas";
+    let alias = "Rutas";
     let cols = {
         id: {
             type: dataTypes.INTEGER,
@@ -15,10 +15,10 @@ module.exports = (sequelize, dataTypes) => {
         distancia: {
             type: dataTypes.DOUBLE
         },
-        horaSalida: {
+        horaSalida: { 
             type: dataTypes.TIME
         },
-        tiempoAproximado: {
+        tiempoAproximado: {//horas
             type: dataTypes.DOUBLE
         },
     };
@@ -28,15 +28,15 @@ module.exports = (sequelize, dataTypes) => {
         deletedAt: false,
         paranoid: true
     };
-    const rutas = sequelize.define(alias, cols, config);
+    const Rutas = sequelize.define(alias, cols, config);
 
-    rutas.associate = function(models) {
-        rutas.hasMany(models.viajes, {
-            as: "viaje",
+    Rutas.associate = function(models) {
+        Rutas.hasMany(models.Viajes, {
+            as: "Viaje",
             foreignKey: "idRuta"
         });
     }
 
-    return rutas;
+    return Rutas;
 
 }
