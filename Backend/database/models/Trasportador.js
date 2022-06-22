@@ -1,7 +1,7 @@
 module.exports = (sequelize, dataTypes) => {
     let alias = "Trasportadores";
     let cols = {
-        placa: {
+        id: {
             type: dataTypes.INTEGER,
             primaryKey: true
         },

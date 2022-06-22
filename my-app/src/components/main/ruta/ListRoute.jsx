@@ -3,38 +3,41 @@ import {Link} from 'react-router-dom';
 import Header from '../../partials/Header';
 import Sidebar from '../../partials/Sidebar';
 
-const Driver = () => {
+const Route = () => {
+
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3030/drive')
+        fetch('http://localhost:3030/route')
             .then(response => response.json())
             .then(response => {
+                console.log(response.data);
                 if (response.ok) setData(response.data);
             })
             .catch(error => console.log(error));
     }, []);
+
     return (
         <>
             <Sidebar />
             <Header />
             <div className="main-index">
                 <div className="main-index-top add">
-                    <h2>Conductores</h2>
-                    <Link to='/drive/create'><i class="fa-solid fa-circle-plus"></i></Link>
+                    <h2>Rutas</h2>
+                    <Link to='/route/create'><i class="fa-solid fa-circle-plus"></i></Link>
                 </div>
                 <div className="main-index-bottom">
                     {data?.map((item, i) => {
                         return (
                             <div className="card" key={i}>
                                 <div className="card-header">
-                                    {item?.nombre} - {item.placa}
+                                    {item.ciudadOrigen} - {item.ciudadDestino}
                                 </div>
                                 <div className="card-body">
-                                    {`${item.experencia} de experiencia `}
+                                    {`${item.distancia} Km`}
                                 </div>
                                 <div className="card-footer">
-                                    {`${item.edad} años`}
+                                    {`${item.horaSalida} Horas`}
                                 </div>
                             </div>
                         );
@@ -45,4 +48,4 @@ const Driver = () => {
     );
 }
 
-export default Driver;
+export default Route;

@@ -52,7 +52,7 @@ const user = {
                     err: 'Usuario ya existe'
                 });
             } else {
-                db.personas.create({
+                db.Personas.create({
                     nombre: body.nombre,
                     apellido: body.apellido,
                     tipoDocumento: body.tipoDocumento,
@@ -85,7 +85,7 @@ const user = {
         const id = req.params.id;
         const body = req.body;
         
-        db.personas.update({
+        db.Personas.update({
             nombre: body.nombre,
             apellido: body.apellido,
             tipoDocumento: body.tipoDocumento,

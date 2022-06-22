@@ -20,7 +20,7 @@ module.exports = (sequelize, dataTypes) => {
         },
         tiempoAproximado: {//horas
             type: dataTypes.DOUBLE
-        },
+        }
     };
     let config = {
         tableName: "rutas",

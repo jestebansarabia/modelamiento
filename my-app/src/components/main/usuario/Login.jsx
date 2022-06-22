@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
 
 const Index = () => {
     const [datos, setDatos] = useState({});
     const messenger = useRef();
+    const navigate = useNavigate()
 
     const enviarData=()=> {
 
@@ -23,7 +24,7 @@ const Index = () => {
             .then(data => {
                 if(data.ok){
                     localStorage.setItem('user',JSON.stringify(data.persona));
-                    window.location = '/';
+                    navigate('/');
                 }else{
                     messenger.current.innerHTML = 'Error: '+data.err;
                 }
@@ -45,7 +46,7 @@ const Index = () => {
                 <div className="from-top">
                     <h1>Login</h1>
                 </div>
-                <div className="from-down">
+                <div className="from-down-login">
                     <div className="from-down-input">
                         <label htmlFor="email">Correo: </label>
                         <input type="email" name="correo" onChange={handleChange} placeholder="email" />

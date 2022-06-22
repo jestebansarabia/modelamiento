@@ -1,8 +1,8 @@
 const db = require('../database/models');
 
-const driver ={
+const vehicle ={
     all: (req, res) => {
-        db.Trasportadores.findAll()
+        db.Vehiculos.findAll()
         .then(data=>{
             res.json({
                 ok: true,
@@ -17,8 +17,12 @@ const driver ={
         });
         */
     },
-    store:(req,res)=>{
-        db.Trasportadores.create(req.body)
+    store:async(req,res)=>{
+
+        const fechaTecnica= await db.FichaTecnicas.create(req.body);
+        db.Vehiculos.create({
+            idFichaTecnica:fechaTecnica.placa
+        })
         .then(data => {
             res.json({
                 ok: true,
@@ -34,4 +38,4 @@ const driver ={
     }
 }
 
-module.exports=driver;
+module.exports=vehicle;

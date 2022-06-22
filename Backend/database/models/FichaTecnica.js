@@ -17,7 +17,7 @@ module.exports = (sequelize, dataTypes) => {
         cantPuestos: {
             type: dataTypes.INTEGER
         },
-        ultimoMantinimiento: {
+        ultimoMantenimiento: {
             type: dataTypes.DATE
         },
         documentos: {

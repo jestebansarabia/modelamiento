@@ -9,15 +9,8 @@ const Index = () => {
     const [citysEnd, setCitysEnd] = useState([]);
     const [selectCitysStart, setSelectCitysStart] = useState('none');
     const [selectCitysEnd, setSelectCitysEnd] = useState('none');
-    const [user, setUser] = useState({});
 
     useEffect(() => {
-
-        if (!localStorage.getItem('user')) {
-            window.location = '/usuario/login';
-        }
-
-        setUser(JSON.parse(localStorage.getItem('user')));
 
         fetch('http://localhost:3030/travel/cityStart')
             .then(res => res.json())
@@ -66,7 +59,7 @@ const Index = () => {
     return (
         <>
             <Sidebar />
-            <Header nombre={user?.nombre} />
+            <Header/>
             <div className="main-index">
                 <div className="main-index-top">
                     <select name="ciudadOrigen" id="" onChange={onValueSelectCitysStart}>

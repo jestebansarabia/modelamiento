@@ -156,6 +156,11 @@ main{
     align-items: center;
     flex-wrap: wrap;
 }
+
+.add{
+    justify-content: space-around;
+}
+
 .main-index-top select{
     margin: 0px 20px;
     padding: 5px;

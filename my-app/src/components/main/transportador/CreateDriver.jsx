@@ -1,7 +1,8 @@
 import { Link,useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
-
-const Registar = () => {
+import Sidebar from '../../partials/Sidebar';
+import Header from '../../partials/Header';
+const CreateDriver = () => {
 
     const [datos, setDatos] = useState({});
     const messenger = useRef();
@@ -17,7 +18,7 @@ const Registar = () => {
 
         messenger.current.innerHTML = 'Cargando....';
 
-        fetch('http://localhost:3030/users/store', {
+        fetch('http://localhost:3030/drive/store', {
             mode: 'cors',
             method: 'POST', // or 'PUT'
             body: JSON.stringify(datos), // data can be `string` or {object}!
@@ -40,13 +41,17 @@ const Registar = () => {
             });
     }
 
+
     return (
-        <main>
-            <div className="from">
-                <div className="from-top">
-                    <h1>Registrar</h1>
-                </div>
-                <div className="from-down">
+        <>
+            <Sidebar />
+            <Header />
+            <div className="main-index">
+                <div className="from">
+                    <div className="from-top">
+                        <h1>Nuevo Transportador</h1>
+                    </div>
+                    <div className="from-down">
                     <div className="from-down-left">
                         <div className="from-down-input">
                             <label htmlFor="nombre">Nombre: </label>
@@ -88,16 +93,12 @@ const Registar = () => {
                     <small ref={messenger}></small>
                 </div>
                 <div className="from-down-button">
-                    <button onClick={enviarData}>Registar</button>
+                    <button onClick={enviarData}>Guardar</button>
                 </div>
-
-                <div className="from-down-button">
-                    <Link to="/usuario/login">Ya tengo cuenta</Link>
                 </div>
-
             </div>
-        </main>
+        </>
     );
 }
 
-export default Registar;
+export default CreateDriver;
