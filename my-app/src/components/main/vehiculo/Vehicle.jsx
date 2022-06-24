@@ -10,6 +10,7 @@ const Vehicle = () => {
         fetch('http://localhost:3030/vehicle')
             .then(response => response.json())
             .then(response => {
+                console.log(response);
                 if (response.ok) setData(response.data);
             })
             .catch(error => console.log(error));

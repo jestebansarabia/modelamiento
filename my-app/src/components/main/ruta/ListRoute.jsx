@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../../partials/Header';
 import Sidebar from '../../partials/Sidebar';
 
@@ -27,21 +27,27 @@ const Route = () => {
                     <Link to='/route/create'><i class="fa-solid fa-circle-plus"></i></Link>
                 </div>
                 <div className="main-index-bottom">
-                    {data?.map((item, i) => {
-                        return (
-                            <div className="card" key={i}>
-                                <div className="card-header">
-                                    {item.ciudadOrigen} - {item.ciudadDestino}
-                                </div>
-                                <div className="card-body">
-                                    {`${item.distancia} Km`}
-                                </div>
-                                <div className="card-footer">
-                                    {`${item.horaSalida} Horas`}
-                                </div>
-                            </div>
-                        );
-                    })}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Origen - Destino</th>
+                                <th>Distancia <small>(Km)</small></th>
+                                <th>Hora <small>(Hr)</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data?.map((item, i) => {
+                                return (
+                                    <tr>
+                                        <td> {item.ciudadOrigen} - {item.ciudadDestino}</td>
+                                        <td>{item.distancia}</td>
+                                        <td>{item.horaSalida}</td>
+                                    </tr>
+                                );
+                            })}
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </>

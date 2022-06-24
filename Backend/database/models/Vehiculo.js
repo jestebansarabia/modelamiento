@@ -17,19 +17,19 @@ module.exports = (sequelize, dataTypes) => {
         paranoid: true
     };
     const Vehiculos = sequelize.define(alias, cols, config);
-    /*
 
-    Vehiculo.associate = function(models) {
-        Vehiculo.belongsTo(models.FichaTecnica, {
-            as: "vehiculos",
+    Vehiculos.associate = function(models) {
+        Vehiculos.belongsTo(models.FichaTecnica, {
+            as: "vehiculo",
             foreignKey: "idFichaTenica"
         });
-        Vehiculo.hasMany(models.Trasportadores, {
+        /*
+        Vehiculos.hasMany(models.Trasportadores, {
             as: "Trasportadores",
             foreignKey: "idVehiculo"
         });
+        */
     }
-    */
 
     return Vehiculos;
 

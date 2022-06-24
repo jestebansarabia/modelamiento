@@ -2,7 +2,19 @@ const db = require('../database/models');
 
 const vehicle ={
     all: (req, res) => {
-        db.Vehiculos.findAll()
+        db.Vehiculos.findAll({
+            include: [
+                { association: "vehiculo" },
+                /*{ association: "colors" },
+                {
+                    association: "characteristics",
+                    include: [
+                        { association: "principals" }
+                    ]
+                },
+                */
+            ]
+        })
         .then(data=>{
             res.json({
                 ok: true,

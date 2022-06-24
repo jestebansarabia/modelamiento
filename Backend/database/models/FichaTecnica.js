@@ -31,14 +31,12 @@ module.exports = (sequelize, dataTypes) => {
         paranoid: true
     };
     const FichaTecnicas = sequelize.define(alias, cols, config);
-    /*
     FichaTecnicas.associate = function (models) {
-        FichaTecnicas.hasMany(models.Vehiculos, {
-            as: "vehiculos",
+        FichaTecnicas.belongsTo(models.Vehiculos, {
+            as: "vehiculo",
             foreignKey: "idFichaTecnica"
         });
     }
-*/
     return FichaTecnicas;
 
 }
