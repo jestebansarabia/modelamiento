@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import Header from '../../partials/Header';
 import Sidebar from '../../partials/Sidebar';
 
@@ -12,7 +11,7 @@ const Index = () => {
 
     useEffect(() => {
 
-        fetch('http://localhost:3030/travel/cityStart')
+        fetch('http://localhost:3030/travels/cityStart')
             .then(res => res.json())
             .then(data => {
                 if (data.ok) setCitysStart(data.data);
@@ -23,7 +22,7 @@ const Index = () => {
     }, []);
 
     const cityEnd = (city) => {
-        fetch(`http://localhost:3030/travel/cityEnd?ciudadOrigen=${city}`)
+        fetch(`http://localhost:3030/travels/cityEnd?ciudadOrigen=${city}`)
             .then(res => res.json())
             .then(data => {
                 if (data.ok) {
@@ -37,7 +36,7 @@ const Index = () => {
     }
 
     const getTravels = (props) => {
-        fetch(`http://localhost:3030/travel?ciudadOrigen=${selectCitysStart}&ciudadDestino=${selectCitysEnd}`)
+        fetch(`http://localhost:3030/travels?ciudadOrigen=${selectCitysStart}&ciudadDestino=${selectCitysEnd}`)
             .then(res => res.json())
             .then(data => {
                 if (data.ok) setRoute(data);

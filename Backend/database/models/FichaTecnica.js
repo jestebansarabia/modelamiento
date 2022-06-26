@@ -26,14 +26,12 @@ module.exports = (sequelize, dataTypes) => {
     };
     let config = {
         tableName: "fichaTecnicas",
-        timestamps: false,
-        deletedAt: false,
-        paranoid: true
+        timestamps: false
     };
     const FichaTecnicas = sequelize.define(alias, cols, config);
     FichaTecnicas.associate = function (models) {
-        FichaTecnicas.belongsTo(models.Vehiculos, {
-            as: "vehiculo",
+        FichaTecnicas.hasMany(models.Vehiculos, {
+            as: "vehiculos",
             foreignKey: "idFichaTecnica"
         });
     }

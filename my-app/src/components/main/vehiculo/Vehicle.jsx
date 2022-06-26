@@ -10,7 +10,6 @@ const Vehicle = () => {
         fetch('http://localhost:3030/vehicle')
             .then(response => response.json())
             .then(response => {
-                console.log(response);
                 if (response.ok) setData(response.data);
             })
             .catch(error => console.log(error));
@@ -22,35 +21,36 @@ const Vehicle = () => {
             <div className="main-index">
                 <div className="main-index-top add">
                     <h2>Vehiculos</h2>
-                    <Link to='/vehicle/create'><i class="fa-solid fa-circle-plus"></i></Link>
+                    <Link to='/vehicle/create'><i className="fa-solid fa-circle-plus"></i></Link>
                 </div>
                 <div className="main-index-bottom">
-                    {data?.map((item, i) => {
-                        return (
-                            <div className="card" key={i}>
-                                <div className="card-header">
-                                    {item?.nombre} - {item.placa}
-                                </div>
-                                <div className="card-body">
-                                    {`${item.experencia} de experiencia `}
-                                </div>
-                                <div className="card-footer">
-                                    {`${item.edad} años`}
-                                </div>
-                            </div>
-                        );
-                    })}
-                    <div className="card">
-                        <div className="card-header">
-                            nombre
-                        </div>
-                        <div className="card-body">
-                            tiempos
-                        </div>
-                        <div className="card-footer">
-                            precio
-                        </div>
-                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Placa</th>
+                                <th>Tipo</th>
+                                <th>Modelo</th>
+                                <th>Marca</th>
+                                <th>Puestos</th>
+                                <th>Mantenimiento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data?.map((item, i) => {
+                                return (
+                                    <tr key={i}>
+                                        <td> {item.fichaTecnica.placa}</td>
+                                        <td>{item.fichaTecnica.tipoVehiculo}</td>
+                                        <td>{item.fichaTecnica.modelo}</td>
+                                        <td>{item.fichaTecnica.marca}</td>
+                                        <td>{item.fichaTecnica.cantPuestos}</td>
+                                        <td>{item.fichaTecnica.ultimoMantenimiento.split("T")[0]}</td>
+                                    </tr>
+                                );
+                            })}
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </>

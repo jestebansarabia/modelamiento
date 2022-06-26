@@ -19,9 +19,9 @@ module.exports = (sequelize, dataTypes) => {
     const Vehiculos = sequelize.define(alias, cols, config);
 
     Vehiculos.associate = function(models) {
-        Vehiculos.belongsTo(models.FichaTecnica, {
-            as: "vehiculo",
-            foreignKey: "idFichaTenica"
+        Vehiculos.belongsTo(models.FichaTecnicas, {
+            as: "fichaTecnica",
+            foreignKey: "idFichaTecnica"
         });
         /*
         Vehiculos.hasMany(models.Trasportadores, {

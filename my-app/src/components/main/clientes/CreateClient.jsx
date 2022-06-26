@@ -1,10 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useRef, useState } from 'react';
-import Sidebar from '../../partials/Sidebar';
+import { useRef , useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../partials/Header';
+import Sidebar from '../../partials/Sidebar';
 import Persona from '../Persona';
-const CreateDriver = () => {
 
+const CreateClient = () => {
     const [datos, setDatos] = useState({});
     const messenger = useRef();
     const navigate = useNavigate()
@@ -19,7 +19,7 @@ const CreateDriver = () => {
 
         messenger.current.innerHTML = 'Cargando....';
 
-        fetch('http://localhost:3030/drive/store', {
+        fetch('http://localhost:3030/clients/store', {
             mode: 'cors',
             method: 'POST', // or 'PUT'
             body: JSON.stringify(datos), // data can be `string` or {object}!
@@ -41,8 +41,6 @@ const CreateDriver = () => {
                 messenger.current.innerHTML = 'Error al enviar los datos';
             });
     }
-
-
     return (
         <>
             <Sidebar />
@@ -65,4 +63,4 @@ const CreateDriver = () => {
     );
 }
 
-export default CreateDriver;
+export default CreateClient;

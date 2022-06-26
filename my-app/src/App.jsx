@@ -8,8 +8,9 @@ import CreateRoute from './components/main/ruta/CreateRoute.jsx';
 import CreateDriver from './components/main/transportador/CreateDriver.jsx';
 import Vehicle from './components/main/vehiculo/Vehicle.jsx';
 import CreateVehicle from './components/main/vehiculo/CreateVehicle.jsx';
-import Person from './components/main/persona/Person.jsx';
 import NotFound from './components/main/NoFound.jsx';
+import CreateClient from './components/main/clientes/CreateClient.jsx';
+import Client from './components/main/clientes/Client.jsx';
 function App() {
   return (
     <>
@@ -23,7 +24,8 @@ function App() {
         <Route path='/route/create' element={<CreateRoute/>}/>
         <Route path='/vehicle' element={<Vehicle/>}/>
         <Route path='/vehicle/create' element={<CreateVehicle/>}/>
-        <Route path='/persona' element={<Person/>}/>
+        <Route path='/client' element={<Client/>}/>
+        <Route path='/client/create' element={<CreateClient/>}/>
         <Route path="*"   element={<NotFound/>} />
       </Routes>
     </>

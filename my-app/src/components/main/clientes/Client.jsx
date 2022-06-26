@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import {useState,useEffect}from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../partials/Header';
 import Sidebar from '../../partials/Sidebar';
 
-const Route = () => {
+const Person = () => {
 
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3030/route')
+        fetch('http://localhost:3030/clients')
             .then(response => response.json())
             .then(response => {
                 if (response.ok) setData(response.data);
@@ -22,8 +22,8 @@ const Route = () => {
             <Header />
             <div className="main-index">
                 <div className="main-index-top add">
-                    <h2>Rutas</h2>
-                    <Link to='/route/create'><i className="fa-solid fa-circle-plus"></i></Link>
+                    <h2>Personas</h2>
+                    <Link to='/client/create'><i className="fa-solid fa-circle-plus"></i></Link>
                 </div>
                 <div className="main-index-bottom">
                     <table>
@@ -55,4 +55,4 @@ const Route = () => {
     );
 }
 
-export default Route;
+export default Person;

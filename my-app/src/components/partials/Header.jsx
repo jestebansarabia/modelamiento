@@ -18,7 +18,7 @@ const Header = (props) => {
                 <small className='inf-type-user'>Cliente</small>
             </div>
             <div className="header-inf-right">
-                <Link to='/usuario/login'><i class="fa-solid fa-user"></i></Link>
+                <Link to='/usuario/login'><i className="fa-solid fa-user"></i></Link>
             </div>
         </div>
     </header>

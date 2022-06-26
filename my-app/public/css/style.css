@@ -183,3 +183,9 @@ main{
     padding: 5px;
     margin: 5px;
 }
+table{
+    width: 100%;
+}
+tbody tr td{
+    text-align: center;
+}
