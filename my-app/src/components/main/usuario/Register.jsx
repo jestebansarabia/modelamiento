@@ -29,7 +29,7 @@ const Registar = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.ok) {
-                    navigate('/usuario/login');
+                    navigate('/usuarios/login');
                 } else {
                     messenger.current.innerHTML = 'Error al registrar el usuario: ' + data.err;
                 }

@@ -11,10 +11,11 @@ const Sidebar = () => {
             <ul className="sidebar-options">
 
                 <li><Link to="/"><i className="fa-solid fa-ticket-simple"></i></Link></li>
-                <li><Link to="/route"><i className="fa-solid fa-registered"></i></Link></li>
-                <li><Link to="/vehicle"><i className="fa-solid fa-car"></i></Link></li>
-                <li><Link to="/drive"><i className="fa-solid fa-id-card"></i></Link></li>
-                <li><Link to="/persona"><i className="fa-solid fa-person"></i></Link></li>
+                <li><Link to="/travels"><i className="fa-solid fa-compass"></i></Link></li>
+                <li><Link to="/routes"><i className="fa-solid fa-route"></i></Link></li>
+                <li><Link to="/vehicles"><i className="fa-solid fa-car"></i></Link></li>
+                <li><Link to="/drives"><i className="fa-solid fa-id-card"></i></Link></li>
+                <li><Link to="/clients"><i className="fa-solid fa-person"></i></Link></li>
             </ul>
         </nav>
     );

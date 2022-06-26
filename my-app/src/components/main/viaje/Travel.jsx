@@ -1,104 +1,59 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../../partials/Header';
 import Sidebar from '../../partials/Sidebar';
 
-const Index = () => {
-    const [route, setRoute] = useState([]);
-    const [citysStart, setCitysStart] = useState([]);
-    const [citysEnd, setCitysEnd] = useState([]);
-    const [selectCitysStart, setSelectCitysStart] = useState('none');
-    const [selectCitysEnd, setSelectCitysEnd] = useState('none');
+const Travel = () => {
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-
-        fetch('http://localhost:3030/travels/cityStart')
-            .then(res => res.json())
-            .then(data => {
-                if (data.ok) setCitysStart(data.data);
+        fetch('http://localhost:3030/travels')
+            .then(response => response.json())
+            .then(response => {
+                if (response.ok) setData(response.data);
             })
-            .catch(error => {
-                console.log('error: ', error);
-            });
+            .catch(error => console.log(error));
     }, []);
-
-    const cityEnd = (city) => {
-        fetch(`http://localhost:3030/travels/cityEnd?ciudadOrigen=${city}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.ok) {
-                    setCitysEnd(data.data);
-                    setSelectCitysEnd(data.data[0])
-                }
-            })
-            .catch(error => {
-                console.log('error: ', error);
-            });
-    }
-
-    const getTravels = (props) => {
-        fetch(`http://localhost:3030/travels?ciudadOrigen=${selectCitysStart}&ciudadDestino=${selectCitysEnd}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.ok) setRoute(data);
-            })
-            .catch(error => {
-                console.log('error: ', error);
-            });
-    }
-
-    const onValueSelectCitysStart = (event) => {
-        setSelectCitysStart(event.target.value);
-        if (event.target.value != 'none') cityEnd(event.target.value);
-    }
-
-    const onValueSelectCitysEnd = (event) => {
-        setSelectCitysEnd(event.target.value);
-    }
 
     return (
         <>
-            <Sidebar />
-            <Header/>
-            <div className="main-index">
-                <div className="main-index-top">
-                    <select name="ciudadOrigen" id="" onChange={onValueSelectCitysStart}>
-                        <option value='none' selected>Escoja Opcion</option>
-                        {citysStart?.map((item, i) => <option key={i} value={item}>{item}</option>)}
-
-                    </select>
-                    <select name="ciudadDestino" id="" onChange={onValueSelectCitysEnd}>
-                        {citysEnd?.map((item, i) => <option key={i} value={item}>{item}</option>)}
-                    </select>
-                    <i class="fa-solid fa-magnifying-glass" onClick={getTravels}></i>
-                </div>
-                <div className="main-index-bottom">
-                    {route.map((item, i) =>
-                        <div className="card">
-                            <div className="card-header">
-                            </div>
-                            <div className="card-body">
-                                tiempos
-                            </div>
-                            <div className="card-footer">
-                                precio
-                            </div>
-                        </div>
-                    )}
-                    <div className="card">
-                        <div className="card-header">
-                            nombre
-                        </div>
-                        <div className="card-body">
-                            tiempos
-                        </div>
-                        <div className="card-footer">
-                            precio
-                        </div>
-                    </div>
-                </div>
+        <Sidebar />
+        <Header />
+        <div className="main-index">
+            <div className="main-index-top add">
+                <h2>Viajes</h2>
+                <Link to='/travels/create'><i class="fa-solid fa-circle-plus"></i></Link>
             </div>
-        </>
+            <div className="main-index-bottom">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ciudad Origen</th>
+                            <th>Ciudad Destino</th>
+                            <th>Hora de Salida</th>
+                            <th>Conductor</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data?.map((item, i) => {
+                            return (
+                                <tr key={i}>
+                                    <td> {item?.ruta?.ciudadOrigen}</td>
+                                    <td>{item?.ruta?.ciudadDestino}</td>
+                                    <td>{item?.ruta?.horaSalida}</td>
+                                    <td>{`${item?.trasportador?.persona?.nombre} ${item?.trasportador?.persona?.apellido}`}</td>
+                                    <td> {item?.valor}</td>
+                                </tr>
+                            );
+                        })}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </>
     );
 }
 
-export default Index;
+export default Travel;

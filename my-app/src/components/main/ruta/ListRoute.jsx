@@ -8,7 +8,7 @@ const Route = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3030/route')
+        fetch('http://localhost:3030/routes')
             .then(response => response.json())
             .then(response => {
                 if (response.ok) setData(response.data);
@@ -23,7 +23,7 @@ const Route = () => {
             <div className="main-index">
                 <div className="main-index-top add">
                     <h2>Rutas</h2>
-                    <Link to='/route/create'><i className="fa-solid fa-circle-plus"></i></Link>
+                    <Link to='/routes/create'><i className="fa-solid fa-circle-plus"></i></Link>
                 </div>
                 <div className="main-index-bottom">
                     <table>

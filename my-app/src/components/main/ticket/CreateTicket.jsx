@@ -1,18 +1,25 @@
-import { useRef, useState } from 'react';
+import {useState,useRef,} from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../partials/Header';
 import Sidebar from '../../partials/Sidebar';
-import { useNavigate } from "react-router-dom"
 
-const CreateRoute = () => {
+const CreateTicket = () => {
+
     const [datos, setDatos] = useState({});
     const messenger = useRef();
     const navigate = useNavigate()
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setDatos({ ...datos, [name]: value });
+    };
+
     const enviarData = () => {
+        console.log("datos: ", datos);
 
         messenger.current.innerHTML = 'Cargando....';
 
-        fetch('http://localhost:3030/routes/store', {
+        fetch('http://localhost:3030/vehicle/store', {
             mode: 'cors',
             method: 'POST', // or 'PUT'
             body: JSON.stringify(datos), // data can be `string` or {object}!
@@ -24,19 +31,15 @@ const CreateRoute = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.ok) {
-                    navigate("/routes");
+                    navigate('/vehicle');
                 } else {
-                    messenger.current.innerHTML = 'Error: ' + data.err;
+                    messenger.current.innerHTML = 'Error al registrar: ' + data.err;
                 }
             })
             .catch(error => {
+                console.log('error: ', error);
                 messenger.current.innerHTML = 'Error al enviar los datos';
             });
-    }
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setDatos({ ...datos, [name]: value });
     }
 
     return (
@@ -46,33 +49,41 @@ const CreateRoute = () => {
             <div className="main-index">
                 <div className="from">
                     <div className="from-top">
-                        <h1>Nueva Ruta</h1>
+                        <h1>Ticket</h1>
                     </div>
                     <div className="from-down">
                         <div className="from-down-left">
                             <div className="from-down-input">
-                                <label htmlFor="ciudadOrigen">Ciudad Origen: </label>
-                                <input type="text" name="ciudadOrigen" placeholder="Nombre" onChange={handleChange} />
+                                <label htmlFor="placa">Placa: </label>
+                                <input type="text" name="placa" placeholder="Placa" onChange={handleChange} />
                             </div>
                             <div className="from-down-input">
-                                <label htmlFor="ciudadDestino">Ciudad Destino: </label>
-                                <input type="text" name="ciudadDestino"placeholder="Nombre" onChange={handleChange} />
+                                <label htmlFor="tipoVehiculo">Tipo de Vehiculo: </label>
+                                <input type="text" name="tipoVehiculo" placeholder="Tipo de Vehiculo" onChange={handleChange} />
+                            </div>
+                            <div className="from-down-input">
+                                <label htmlFor="modelo">Modelo: </label>
+                                <input type="text" name="modelo" placeholder="Modelo" onChange={handleChange} />
                             </div>
                         </div>
                         <div className="from-down-right">
                             <div className="from-down-input">
-                                <label htmlFor="distancia">Distancia <small>(km)</small>: </label>
-                                <input type="number" name="distancia"  onChange={handleChange} />
+                                <label htmlFor="marca">Marca: </label>
+                                <input type="text" name="marca" placeholder="Marca" onChange={handleChange} />
                             </div>
                             <div className="from-down-input">
-                                <label htmlFor="horaSalida">Hora de Salida <small>(Hr)</small>: </label>
-                                <input type="time" name="horaSalida"  onChange={handleChange} />
+                                <label htmlFor="cantPuestos">Cantiad de puestos: </label>
+                                <input type="number" name="cantPuestos" placeholder="Cantiad de puestos" onChange={handleChange} />
+                            </div>
+                            <div className="from-down-input">
+                                <label htmlFor="ultimoMantenimiento">Ultimo Mantenimiento: </label>
+                                <input type="date" name="ultimoMantenimiento" onChange={handleChange} />
                             </div>
                         </div>
                     </div>
                     <div className="from-down-input">
-                        <label htmlFor="tiempoAproximado">Tiempo Aproximado <small>(Hr)</small>: </label>
-                        <input type="time" name="tiempoAproximado" onChange={handleChange} />
+                        <label htmlFor="documentos">Documentos: </label>
+                        <input type="text" name="documentos" placeholder="Documentos" onChange={handleChange} />
                     </div>
                     <div className='from-down-messenger'>
                         <small ref={messenger}></small>
@@ -86,4 +97,4 @@ const CreateRoute = () => {
     );
 }
 
-export default CreateRoute;
+export default CreateTicket;

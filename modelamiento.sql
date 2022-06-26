@@ -48,7 +48,6 @@ CREATE TABLE IF NOT EXISTS trasportadores(
 id INT NOT NULL AUTO_INCREMENT,
 idPersona INT NOT NULL,
 idVehiculo INT NOT NULL,
-ruta VARCHAR(100) NULL,
 experiencia INT NOT NULL,
 cv VARCHAR(45) NULL,
 edad INT NULL,
@@ -63,7 +62,7 @@ ciudadOrigen VARCHAR(45) NOT NULL,
 ciudadDestino VARCHAR(45) NOT NULL,
 distancia DOUBLE NOT NULL,
 horaSalida TIME NOT NULL,
-tiempoAproximado DOUBLE NOT NULL,
+tiempoAproximado TIME NOT NULL,
 PRIMARY KEY(id)
 )ENGINE InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -71,6 +70,7 @@ CREATE TABLE IF NOT EXISTS viajes(
 id INT NOT NULL AUTO_INCREMENT,
 idTransportador INT NOT NULL,
 idRuta INT NOT NULL,
+valor DOUBLE NOT NULL,
 PRIMARY KEY(id),
 FOREIGN KEY (idTransportador) REFERENCES trasportadores(id),
 FOREIGN KEY (idRuta) REFERENCES rutas(id)

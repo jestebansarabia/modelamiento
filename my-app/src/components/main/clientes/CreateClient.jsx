@@ -22,7 +22,7 @@ const CreateClient = () => {
         fetch('http://localhost:3030/clients/store', {
             mode: 'cors',
             method: 'POST', // or 'PUT'
-            body: JSON.stringify(datos), // data can be `string` or {object}!
+            body: JSON.stringify({...datos,password:datos.documento}), // data can be `string` or {object}!
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
@@ -31,7 +31,7 @@ const CreateClient = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.ok) {
-                    navigate('/usuario/login');
+                    navigate('/clients');
                 } else {
                     messenger.current.innerHTML = 'Error al registrar el usuario: ' + data.err;
                 }
@@ -48,7 +48,7 @@ const CreateClient = () => {
             <div className="main-index">
                 <div className="from">
                     <div className="from-top">
-                        <h1>Nuevo Transportador</h1>
+                        <h1>Nuevo Usuario</h1>
                     </div>
                     <Persona handleChange={handleChange} />
                     <div className='from-down-messenger'>

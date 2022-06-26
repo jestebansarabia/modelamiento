@@ -7,7 +7,7 @@ const Vehicle = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3030/vehicle')
+        fetch('http://localhost:3030/vehicles')
             .then(response => response.json())
             .then(response => {
                 if (response.ok) setData(response.data);
@@ -21,7 +21,7 @@ const Vehicle = () => {
             <div className="main-index">
                 <div className="main-index-top add">
                     <h2>Vehiculos</h2>
-                    <Link to='/vehicle/create'><i className="fa-solid fa-circle-plus"></i></Link>
+                    <Link to='/vehicles/create'><i className="fa-solid fa-circle-plus"></i></Link>
                 </div>
                 <div className="main-index-bottom">
                     <table>

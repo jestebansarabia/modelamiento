@@ -2,26 +2,25 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useRef, useState, useEffect } from 'react';
 import Sidebar from '../../partials/Sidebar';
 import Header from '../../partials/Header';
-const CreateDriver = () => {
-
+const CreateTravel = () => {
     const [datos, setDatos] = useState({});
-    const [persons, setPersons] = useState([]);
-    const [vehicles, setVehicles] = useState([]);
+    const [drives, setDrives] = useState([]);
+    const [routes, setRoutes] = useState([]);
     const messenger = useRef();
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:3030/users')
+        fetch('http://localhost:3030/drives')
             .then(response => response.json())
             .then(response => {
-                if (response.ok) setPersons(response.data);
+                if (response.ok) setDrives(response.data);
             })
             .catch(error => console.log(error));
 
-        fetch('http://localhost:3030/vehicles')
+        fetch('http://localhost:3030/routes')
             .then(response => response.json())
             .then(response => {
-                if (response.ok) setVehicles(response.data);
+                if (response.ok) setRoutes(response.data);
             })
             .catch(error => console.log(error));
     }, []);
@@ -37,7 +36,7 @@ const CreateDriver = () => {
 
         messenger.current.innerHTML = 'Cargando....';
 
-        fetch('http://localhost:3030/drives/store', {
+        fetch('http://localhost:3030/travels/store', {
             mode: 'cors',
             method: 'POST', // or 'PUT'
             body: JSON.stringify(datos), // data can be `string` or {object}!
@@ -49,7 +48,7 @@ const CreateDriver = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.ok) {
-                    navigate('/drives');
+                    navigate('/travels');
                 } else {
                     messenger.current.innerHTML = 'Error al registrar : ' + data.err;
                 }
@@ -68,47 +67,39 @@ const CreateDriver = () => {
             <div className="main-index">
                 <div className="from">
                     <div className="from-top">
-                        <h1>Nuevo Conductor</h1>
+                        <h1>Nuevo Viaje</h1>
                     </div>
                     <div className="from-down">
                         <div className="from-down-left">
                             <div className="from-down-input">
                                 <div className="main-index-top add-between">
-                                    <label htmlFor="nombre">Usuario: </label>
-                                    <Link to='/clients/create'><i class="fa-solid fa-circle-plus small"></i></Link>
+                                    <label htmlFor="nombre">Conductor <small>(placa - nombre)</small>: </label>
+                                    <Link to='/drives/create'><i class="fa-solid fa-circle-plus small"></i></Link>
                                 </div>
-                                <select name="idPersona"  onChange={handleChange}>
+                                <select name="idTransportador" onChange={handleChange}>
                                     <option value='none' selected>Escoja Opcion</option>
-                                    {persons?.map((item, i) => <option key={i} value={item.id}>{`${item.documento} - ${item.nombre} ${item.apellido}`}</option>)}
+                                    {drives?.map((item, i) => <option key={i} value={item.id}>{`${item.vehiculo.idFichaTecnica} - ${item.persona.nombre} ${item.persona.apellido}`}</option>)}
 
                                 </select>
-                            </div>
-                            <div className="from-down-input">
-                                <label htmlFor="experiencia">Experiencia: </label>
-                                <input type="number" name="experiencia" onChange={handleChange} />
                             </div>
                         </div>
                         <div className="from-down-right">
                             <div className="from-down-input">
                                 <div className="main-index-top add-between">
-                                    <label htmlFor="nombre">Vehiculo: </label>
-                                    <Link to='/vehicles/create'><i class="fa-solid fa-circle-plus small"></i></Link>
+                                    <label htmlFor="nombre">Ruta <small>(Origen - Llegada (Hr))</small>: </label>
+                                    <Link to='/routes/create'><i class="fa-solid fa-circle-plus small"></i></Link>
                                 </div>
-                                <select name="idVehiculo" onChange={handleChange}>
+                                <select name="idRuta" onChange={handleChange}>
                                     <option value='none' selected>Escoja Opcion</option>
-                                    {vehicles?.map((item, i) => <option key={i} value={item.id}>{`${item.fichaTecnica.tipoVehiculo} - ${item.idFichaTecnica}`}</option>)}
+                                    {routes?.map((item, i) => <option key={i} value={item.id}>{`${item.ciudadOrigen} - ${item.ciudadDestino} Salida ${item.horaSalida}`}</option>)}
 
                                 </select>
-                            </div>
-                            <div className="from-down-input">
-                                <label htmlFor="edad">edad: </label>
-                                <input type="number" name="edad" onChange={handleChange} />
                             </div>
                         </div>
                     </div>
                     <div className="from-down-input">
-                        <label htmlFor="cv">Hoja de vida: </label>
-                        <input type="text" name="cv" placeholder="Hoja de vida" onChange={handleChange} />
+                        <label htmlFor="valor">Valor: </label>
+                        <input type="number" name="valor"  onChange={handleChange} />
                     </div>
                     <div className='from-down-messenger'>
                         <small ref={messenger}></small>
@@ -122,4 +113,4 @@ const CreateDriver = () => {
     );
 }
 
-export default CreateDriver;
+export default CreateTravel;

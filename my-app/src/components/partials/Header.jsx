@@ -5,7 +5,7 @@ const Header = (props) => {
     const [user, setUser] = useState({});
     useEffect(() => {
         if (!localStorage.getItem('user')) {
-            window.location = '/usuario/login';
+            window.location = '/usuarios/login';
         }
 
         setUser(JSON.parse(localStorage.getItem('user')));

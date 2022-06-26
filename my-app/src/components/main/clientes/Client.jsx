@@ -1,4 +1,4 @@
-import {useState,useEffect}from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../partials/Header';
 import Sidebar from '../../partials/Sidebar';
@@ -22,27 +22,33 @@ const Person = () => {
             <Header />
             <div className="main-index">
                 <div className="main-index-top add">
-                    <h2>Personas</h2>
-                    <Link to='/client/create'><i className="fa-solid fa-circle-plus"></i></Link>
+                    <h2>Cliente</h2>
+                    <Link to='/clients/create'><i className="fa-solid fa-circle-plus"></i></Link>
                 </div>
                 <div className="main-index-bottom">
                     <table>
                         <thead>
                             <tr>
-                                <th>Origen</th>
-                                <th>Destino</th>
-                                <th>Distancia <small>(Km)</small></th>
-                                <th>Hora <small>(Hr)</small></th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Tipo</th>
+                                <th>Documento </th>
+                                <th>Telefono </th>
+                                <th>Correo </th>
+                                <th>direccion </th>
                             </tr>
                         </thead>
                         <tbody>
                             {data?.map((item, i) => {
                                 return (
                                     <tr key={i}>
-                                        <td> {item.ciudadOrigen}</td>
-                                        <td>{item.ciudadDestino}</td>
-                                        <td>{item.distancia}</td>
-                                        <td>{item.horaSalida}</td>
+                                        <td> {item?.persona?.nombre}</td>
+                                        <td>{item?.persona?.apellido}</td>
+                                        <td>{item?.persona?.tipoDocumento}</td>
+                                        <td>{item?.persona?.documento}</td>
+                                        <td>{item?.persona?.telefono}</td>
+                                        <td>{item?.persona?.correo}</td>
+                                        <td><small>{item?.persona?.direccion}</small></td>
                                     </tr>
                                 );
                             })}
