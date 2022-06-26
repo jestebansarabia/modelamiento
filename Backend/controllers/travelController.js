@@ -1,25 +1,89 @@
 const db = require('../database/models');
 
-const getCityOne = (data,key) => {
+const getCityOne = (data, key) => {
     let cityStart = [];
     data?.forEach(item => {
-        if (!cityStart.includes(item[key])) {
-            cityStart.push(item[key]);
+        if (!cityStart.includes(item.ruta[key])) {
+            cityStart.push(item.ruta[key]);
         }
     })
     return cityStart;
 }
 
 const travel = {
+    all: (req, res) => {
+        db.Viajes.findAll({
+            include: [
+                { association: "ruta" },
+                {
+                    association: "trasportador",
+                    include: [
+                        { association: "persona" },
+                        {
+                            association: "vehiculo",
+                            include: [
+                                { association: "fichaTecnica" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        })
+            .then(data => {
+                res.json({
+                    ok: true,
+                    data
+                });
+            })
+            .catch(err => {
+                res.json({
+                    ok: false,
+                    err
+                });
+            });
+    },
+    store: (req, res) => {
+        db.Viajes.create(req.body)
+            .then(data => {
+                res.json({
+                    ok: true,
+                    data
+                });
+            })
+            .catch(err => {
+                res.json({
+                    ok: false,
+                    err
+                });
+            });
+    },
     getAllTravels: (req, res) => {
         const ciudadOrigen = req.query.ciudadOrigen;
         const ciudadDestino = req.query.ciudadDestino;
-        db.Rutas.findAll({
-            where:{
-                "ciudadOrigen":ciudadOrigen,
-                "ciudadDestino":ciudadDestino
-            }
-            })
+        db.Viajes.findAll({
+            include: [
+                {
+                    association: "ruta",
+                    where: {
+                        "ciudadOrigen": ciudadOrigen,
+                        "ciudadDestino": ciudadDestino
+                    }
+                },
+                {
+                    association: "trasportador",
+                    include: [
+                        { association: "persona" },
+                        {
+                            association: "vehiculo",
+                            include: [
+                                { association: "fichaTecnica" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+           
+        })
             .then(data => {
                 res.json({
                     ok: true,
@@ -34,11 +98,15 @@ const travel = {
             });
     },
     cityStart: (req, res) => {
-        db.Rutas.findAll()
+        db.Viajes.findAll({
+            include: [
+                { association: "ruta" }
+            ]
+        })
             .then(data => {
                 res.json({
                     ok: true,
-                    data: getCityOne(data,'ciudadOrigen')
+                    data: getCityOne(data, 'ciudadOrigen')
                 });
             })
             .catch(err => {
@@ -49,13 +117,18 @@ const travel = {
             });
     },
     cityEnd: (req, res) => {
-        db.Rutas.findAll({
-            where:{"ciudadOrigen":req.query.ciudadOrigen}
-            })
+        db.Viajes.findAll({
+            include: [
+                {
+                    association: "ruta",
+                    where: { "ciudadOrigen": req.query.ciudadOrigen },
+                }
+            ]
+        })
             .then(data => {
                 res.json({
                     ok: true,
-                    data:getCityOne(data,'ciudadDestino')
+                    data: getCityOne(data, 'ciudadDestino')
                 });
             })
             .catch(err => {

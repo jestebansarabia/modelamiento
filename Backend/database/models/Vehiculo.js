@@ -23,12 +23,10 @@ module.exports = (sequelize, dataTypes) => {
             as: "fichaTecnica",
             foreignKey: "idFichaTecnica"
         });
-        /*
         Vehiculos.hasMany(models.Trasportadores, {
             as: "Trasportadores",
             foreignKey: "idVehiculo"
         });
-        */
     }
 
     return Vehiculos;

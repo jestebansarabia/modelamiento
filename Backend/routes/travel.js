@@ -6,6 +6,9 @@ const travelController = require('../controllers/travelController');
 router.get('/cityStart',travelController.cityStart);
 router.get('/cityEnd',travelController.cityEnd);
 
-router.get('/',travelController.getAllTravels);
+router.get('/filter',travelController.getAllTravels);
+
+router.get('/',travelController.all);
+router.post('/store',travelController.store);
 
 module.exports = router;

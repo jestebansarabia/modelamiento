@@ -11,6 +11,9 @@ module.exports = (sequelize, dataTypes) => {
         },
         idRuta: {
             type: dataTypes.INTEGER
+        },
+        valor:{
+            type: dataTypes.DOUBLE
         }
     };
     let config = {
@@ -23,15 +26,15 @@ module.exports = (sequelize, dataTypes) => {
 
     Viajes.associate = function(models) {
         Viajes.belongsTo(models.Rutas, {
-            as: "Ruta",
+            as: "ruta",
             foreignKey: "idRuta"
         });
         Viajes.belongsTo(models.Trasportadores, {
-            as: "Trasportador",
+            as: "trasportador",
             foreignKey: "idTransportador"
         });
         Viajes.hasMany(models.Pasajeros, {
-            as: "Pasajeros",
+            as: "pasajeros",
             foreignKey: "idViaje"
         });
     }

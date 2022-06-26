@@ -28,23 +28,23 @@ module.exports = (sequelize, dataTypes) => {
         paranoid: true
     };
     const Trasportadores = sequelize.define(alias, cols, config);
-    /*
-
+    
     Trasportadores.associate = function(models) {
         Trasportadores.belongsTo(models.Vehiculos, {
-            as: "Vehiculos",
+            as: "vehiculo",
             foreignKey: "idVehiculo"
         });
         Trasportadores.belongsTo(models.Personas, {
-            as: "Personas",
+            as: "persona",
             foreignKey: "idPersona"
         });
+        /*
         Trasportadores.hasMany(models.viajes, {
             as: "viajes",
             foreignKey: "idTrasportador"
         });
+        */
     }
-    */
 
     return Trasportadores;
 

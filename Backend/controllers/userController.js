@@ -1,6 +1,28 @@
 const db = require('../database/models');
 
 const user = {
+    all: (req, res) => {
+        db.Personas.findAll()
+        .then(data=>{
+            res.json({
+                ok: true,
+                data:data.map(item=>{
+                    return({
+                        id: item.id,
+                        nombre:item.nombre,
+                        apellido:item.apellido,
+                        documento:item.documento
+                    });
+                })
+            });
+        })
+        .catch(err => {
+            res.json({
+                ok: false,
+                err: 'Error al buscar Personas'
+            });
+        });
+    },
     login: (req, res) => {
         const body = req.body;
         console.log(body);
@@ -28,7 +50,7 @@ const user = {
                 });
             }
         })
-        
+
         /*.catch(err => {
             res.json({
                 ok: false,
@@ -39,7 +61,6 @@ const user = {
     },
     store: (req, res) => {
         const body = req.body;
-        console.log("body: ", body);
 
         db.Personas.findOne({
             where: {
@@ -52,27 +73,19 @@ const user = {
                     err: 'Usuario ya existe'
                 });
             } else {
-                db.Personas.create({
-                    nombre: body.nombre,
-                    apellido: body.apellido,
-                    tipoDocumento: body.tipoDocumento,
-                    documento: body.documento,
-                    telefono: body.telefono,
-                    correo: body.correo,
-                    password: body.password,
-                    direccion: body.direccion
-                }).then(persona => {
-                    res.status(200).json({
-                        ok: true,
-                        persona: persona
+                db.Personas.create(body)
+                    .then(persona => {
+                        res.status(200).json({
+                            ok: true,
+                            persona: persona
+                        });
+                    }).catch(err => {
+                        console.log("Error: ", err);
+                        res.json({
+                            ok: false,
+                            err: 'Error al crear persona'
+                        });
                     });
-                }).catch(err => {
-                    console.log("Error: ", err);
-                    res.json({
-                        ok: false,
-                        err: 'Error al crear persona'
-                    });
-                });
             }
         }).catch(err => {
             res.json({
@@ -84,7 +97,7 @@ const user = {
     update: (req, res) => {
         const id = req.params.id;
         const body = req.body;
-        
+
         db.Personas.update({
             nombre: body.nombre,
             apellido: body.apellido,
@@ -92,7 +105,7 @@ const user = {
             documento: body.documento,
             telefono: body.telefono,
             direccion: body.direccion
-        },{
+        }, {
             where: {
                 id: id
             }
