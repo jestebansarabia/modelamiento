@@ -12,6 +12,9 @@ module.exports = (sequelize, dataTypes) => {
         idViaje: {
             type: dataTypes.INTEGER
         },
+        silla:{
+            type: dataTypes.INTEGER
+        }
     };
     let config = {
         tableName: "pasajeros",

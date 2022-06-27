@@ -110,7 +110,7 @@ const Ticket = () => {
                                         <td>{`${item?.trasportador?.persona?.nombre} ${item?.trasportador?.persona?.apellido}`}</td>
                                         <td>{item?.valor}</td>
                                         <td>{`${item?.trasportador?.vehiculo?.fichaTecnica?.cantPuestos}`}</td>
-                                        <td>{item?.trasportador?.vehiculo?.fichaTecnica?.cantPuestos !== 0 ? <Link to="ticket/create"><i class="fa-solid fa-check small"></i></Link> : <i class="fa-solid fa-x small"></i>}</td>
+                                        <td>{item?.trasportador?.vehiculo?.fichaTecnica?.cantPuestos !== 0 ? <Link to={`ticket/create/${item.id}`}><i class="fa-solid fa-check small"></i></Link> : <i class="fa-solid fa-x small"></i>}</td>
                                     </tr>
                                 );
                             })}

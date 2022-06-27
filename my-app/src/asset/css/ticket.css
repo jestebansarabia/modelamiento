@@ -1,0 +1,43 @@
+.chairs{
+    width: 300px;
+    height: 310px;
+    background-image: url(../images/car.png);
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.chair-front,
+.chair-back{
+    display: flex;
+    justify-content: center;
+    margin: 10px 5px;
+}
+.chair-front{
+    margin-top: 60px;
+}
+.chair-front .chair{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chair-back .chair{
+    width: 32px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chair{
+    margin: 2px;
+}
+.closed{
+    background-color: rgb(185, 143, 143);
+}
+.open{
+    background-color: rgb(110, 163, 110);
+}

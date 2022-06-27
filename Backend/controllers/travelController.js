@@ -82,7 +82,7 @@ const travel = {
                     ]
                 }
             ]
-           
+
         })
             .then(data => {
                 res.json({
@@ -129,6 +129,37 @@ const travel = {
                 res.json({
                     ok: true,
                     data: getCityOne(data, 'ciudadDestino')
+                });
+            })
+            .catch(err => {
+                res.json({
+                    ok: false,
+                    err
+                });
+            });
+    },
+    getId: (req, res) => {
+        db.Viajes.findByPk(req.params.id, {
+            include: [
+                { association: "ruta" },
+                {
+                    association: "trasportador",
+                    include: [
+                        { association: "persona" },
+                        {
+                            association: "vehiculo",
+                            include: [
+                                { association: "fichaTecnica" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        })
+            .then(data => {
+                res.json({
+                    ok: true,
+                    data
                 });
             })
             .catch(err => {

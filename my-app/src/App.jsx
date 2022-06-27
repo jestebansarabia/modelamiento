@@ -19,7 +19,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Ticket/>}/>
-        <Route path='/ticket/create' element={<CreateTicket/>}/>
+        <Route path='/ticket/create/:id' element={<CreateTicket/>}/>
         <Route path='/usuarios/login' element={<Login/>}/>
         <Route path='/usuarios/registrar' element={<Registar/>}/>
         <Route path='/drives' element={<Driver/>}/>
