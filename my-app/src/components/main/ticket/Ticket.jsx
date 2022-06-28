@@ -6,6 +6,7 @@ import Sidebar from '../../partials/Sidebar';
 const Ticket = () => {
 
     const [data, setData] = useState([]);
+    const [passenger, setPassenger] = useState([]);
     const [citysStart, setCitysStart] = useState([]);
     const [citysEnd, setCitysEnd] = useState([]);
     const [selectCitysStart, setSelectCitysStart] = useState('none');
@@ -28,6 +29,15 @@ const Ticket = () => {
                 if (data.ok) setCitysStart(data.data);
             })
             .catch(error => {
+                console.log('error: ', error);
+            });
+
+        fetch(`http://localhost:3030/passengers`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.ok) setPassenger(data.data);
+            })
+            .catch((error) => {
                 console.log('error: ', error);
             });
     }, []);
@@ -109,8 +119,8 @@ const Ticket = () => {
                                         <td>{item?.ruta?.horaSalida}</td>
                                         <td>{`${item?.trasportador?.persona?.nombre} ${item?.trasportador?.persona?.apellido}`}</td>
                                         <td>{item?.valor}</td>
-                                        <td>{`${item?.trasportador?.vehiculo?.fichaTecnica?.cantPuestos}`}</td>
-                                        <td>{item?.trasportador?.vehiculo?.fichaTecnica?.cantPuestos !== 0 ? <Link to={`ticket/create/${item.id}`}><i class="fa-solid fa-check small"></i></Link> : <i class="fa-solid fa-x small"></i>}</td>
+                                        <td>{`${item?.trasportador?.vehiculo?.fichaTecnica?.cantPuestos - passenger.filter(element=>element.idViaje===item.id).length}`}</td>
+                                        <td><Link to={`/passengers/${item.id}`}><i className="fa-solid fa-eye small"></i></Link>{item?.trasportador?.vehiculo?.fichaTecnica?.cantPuestos - passenger.filter(element=>element.idViaje===item.id).length !== 0 ? <Link to={`ticket/create/${item.id}`}><i className="fa-solid fa-check small"></i></Link> : <i class="fa-solid fa-x small"></i>}</td>
                                     </tr>
                                 );
                             })}

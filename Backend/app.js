@@ -11,6 +11,7 @@ const routesRouter = require('./routes/route');
 const drivesRouter = require('./routes/drive');
 const vehiclesRouter = require('./routes/vehicle');
 const clientsRouter = require('./routes/client');
+const passengersRouter = require('./routes/passenger');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use('/routes',routesRouter);
 app.use('/drives',drivesRouter);
 app.use('/vehicles',vehiclesRouter);
 app.use('/clients',clientsRouter);
+app.use('/passengers',passengersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

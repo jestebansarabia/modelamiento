@@ -19,10 +19,10 @@ const CreateVehicle = () => {
 
         messenger.current.innerHTML = 'Cargando....';
 
-        fetch('http://localhost:3030/vehicle/store', {
+        fetch('http://localhost:3030/vehicles/store', {
             mode: 'cors',
             method: 'POST', // or 'PUT'
-            body: JSON.stringify(datos), // data can be `string` or {object}!
+            body: JSON.stringify({...datos,documentos:"none"}), // data can be `string` or {object}!
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
@@ -31,7 +31,7 @@ const CreateVehicle = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.ok) {
-                    navigate('/vehicle');
+                    navigate('/vehicles');
                 } else {
                     messenger.current.innerHTML = 'Error al registrar: ' + data.err;
                 }
@@ -81,10 +81,6 @@ const CreateVehicle = () => {
                                 <input type="date" name="ultimoMantenimiento" onChange={handleChange} />
                             </div>
                         </div>
-                    </div>
-                    <div className="from-down-input">
-                        <label htmlFor="documentos">Documentos: </label>
-                        <input type="text" name="documentos" placeholder="Documentos" onChange={handleChange} />
                     </div>
                     <div className='from-down-messenger'>
                         <small ref={messenger}></small>

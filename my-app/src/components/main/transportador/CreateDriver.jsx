@@ -40,7 +40,7 @@ const CreateDriver = () => {
         fetch('http://localhost:3030/drives/store', {
             mode: 'cors',
             method: 'POST', // or 'PUT'
-            body: JSON.stringify(datos), // data can be `string` or {object}!
+            body: JSON.stringify({...datos,cv:"none"}), // data can be `string` or {object}!
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
@@ -105,10 +105,6 @@ const CreateDriver = () => {
                                 <input type="number" name="edad" onChange={handleChange} />
                             </div>
                         </div>
-                    </div>
-                    <div className="from-down-input">
-                        <label htmlFor="cv">Hoja de vida: </label>
-                        <input type="text" name="cv" placeholder="Hoja de vida" onChange={handleChange} />
                     </div>
                     <div className='from-down-messenger'>
                         <small ref={messenger}></small>

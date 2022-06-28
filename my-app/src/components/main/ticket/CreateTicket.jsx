@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from '../../partials/Header';
 import Sidebar from '../../partials/Sidebar';
 import '../../../asset/css/ticket.css';
@@ -7,6 +7,7 @@ import '../../../asset/css/ticket.css';
 const CreateTicket = () => {
 
     const [datos, setDatos] = useState({});
+    const [passenger, setPassenger] = useState([]);
     const [travel, setTravel] = useState({});
     const [chair, setchair] = useState('No seleccionada');
     const [clients, setClients] = useState([]);
@@ -26,6 +27,15 @@ const CreateTicket = () => {
             .catch(() => {
                 messenger.current.innerHTML = 'Error al enviar los datos';
             });
+        fetch(`http://localhost:3030/passengers`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.ok) setPassenger(data.data);
+            })
+            .catch((error) => {
+                console.log('error: ', error);
+            });
+
         fetch(`http://localhost:3030/clients`)
             .then(res => res.json())
             .then(data => {
@@ -34,6 +44,7 @@ const CreateTicket = () => {
             .catch(() => {
                 messenger.current.innerHTML = 'Error al enviar los datos';
             });
+
     }, []);
 
     const handleChange = (event) => {
@@ -42,11 +53,15 @@ const CreateTicket = () => {
     };
 
     const selected = (event) => {
-        event.target.classList.remove('open');
-        event.target.classList.add('closed');
-        const silla=parseInt(event.target.innerText);
-        setchair(silla);
-        setDatos({...datos, silla})
+        const silla = parseInt(event.target.innerText);
+        if (!passenger.find(item => item.silla === silla&&item.idViaje===id)) {
+            event.target.classList.remove('open');
+            event.target.classList.add('closed');
+            setchair(silla);
+            setDatos({ ...datos, silla })
+        } else {
+            setchair('Mi amigo seleccione una de las disponibles 😉😉');
+        }
     }
 
     const enviarData = () => {
@@ -54,7 +69,7 @@ const CreateTicket = () => {
 
         messenger.current.innerHTML = 'Cargando....';
         // realizar lo de viaje api
-        fetch('http://localhost:3030/vehicle/store', {
+        fetch('http://localhost:3030/passengers/store', {
             mode: 'cors',
             method: 'POST', // or 'PUT'
             body: JSON.stringify(datos), // data can be `string` or {object}!
@@ -66,7 +81,7 @@ const CreateTicket = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.ok) {
-                    navigate('/vehicle');
+                    navigate('/');
                 } else {
                     messenger.current.innerHTML = 'Error al registrar: ' + data.err;
                 }
@@ -108,9 +123,12 @@ const CreateTicket = () => {
                                 <p>{`${travel?.ruta?.tiempoAproximado} `}<small>(Hr)</small></p>
                             </div>
                             <div className="from-down-input">
-                                <label >Cliente: </label>
+                                <div className="main-index-top add-between">
+                                    <label >Cliente: </label>
+                                    <Link to='/clients/create'><i class="fa-solid fa-circle-plus small"></i></Link>
+                                </div>
                                 <select name="idCliente" onChange={handleChange}>
-                                    <option value='none' selected>Escoja Opcion</option>
+                                    <option value='none' selected>Escoja Opccion</option>
                                     {clients?.map((item, i) => <option key={i} value={item?.id}>{`${item?.persona?.documento} - ${item?.persona?.nombre} ${item?.persona?.apellido}`}</option>)}
 
                                 </select>
@@ -127,7 +145,7 @@ const CreateTicket = () => {
                                     <div class="chair closed">
                                         <strong>Drive</strong>
                                     </div>
-                                    <div class="chair open" onClick={selected}>
+                                    <div class={`chair ${passenger.find(item => item.silla === 1&&item.idViaje===id) ? 'closed' : 'open'}`} onClick={selected}>
                                         <strong>1</strong>
                                     </div>
 
@@ -135,9 +153,9 @@ const CreateTicket = () => {
 
                                 <div class="chair-back">
 
-                                    <div class="chair open" onClick={selected}><strong>2</strong></div>
-                                    <div class="chair open" onClick={selected}><strong>3</strong></div>
-                                    <div class="chair open" onClick={selected}><strong>4</strong></div>
+                                    <div class={`chair ${passenger.find(item => item.silla === 2&&item.idViaje===id) ? 'closed' : 'open'}`} onClick={selected}><strong>2</strong></div>
+                                    <div class={`chair ${passenger.find(item => item.silla === 3&&item.idViaje===id) ? 'closed' : 'open'}`} onClick={selected}><strong>3</strong></div>
+                                    <div class={`chair ${passenger.find(item => item.silla === 4&&item.idViaje===id) ? 'closed' : 'open'}`} onClick={selected}><strong>4</strong></div>
 
                                 </div>
                             </div>

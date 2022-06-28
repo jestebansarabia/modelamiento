@@ -26,11 +26,11 @@ module.exports = (sequelize, dataTypes) => {
 
     Pasajeros.associate = function(models) {
         Pasajeros.belongsTo(models.Clientes, {
-            as: "Cliente",
+            as: "cliente",
             foreignKey: "idCliente"
         });
         Pasajeros.belongsTo(models.Viajes, {
-            as: "Viaje",
+            as: "viaje",
             foreignKey: "idViaje"
         });
     }

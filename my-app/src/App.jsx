@@ -14,6 +14,7 @@ import Client from './components/main/clientes/Client.jsx';
 import Ticket from './components/main/ticket/Ticket.jsx';
 import CreateTravel from './components/main/viaje/CreateTravel.jsx';
 import CreateTicket from './components/main/ticket/CreateTicket.jsx';
+import Passenger from './components/main/Passenger.jsx';
 function App() {
   return (
     <>
@@ -32,6 +33,7 @@ function App() {
         <Route path='/clients/create' element={<CreateClient/>}/>
         <Route path='/travels' element={<Travel/>}/>
         <Route path='/travels/create' element={<CreateTravel/>}/>
+        <Route path='/passengers/:id' element={<Passenger/>}/>
         <Route path="*"   element={<NotFound/>} />
       </Routes>
     </>

@@ -56,6 +56,7 @@ i{
 }
 .small{
     font-size: 20px;
+    margin: 0px 2.5px;
 }
 
 header{
@@ -194,4 +195,18 @@ table{
 }
 tbody tr td{
     text-align: center;
+}
+
+.leaflet-container { 
+    border-radius: 10px;
+    height: 400px; 
+    width: 500px; 
+}
+.map{
+    margin: 5px;
+}
+.map label{
+    text-align: center;
+    display: block;
+    margin: 20px;
 }
